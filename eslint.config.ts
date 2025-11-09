@@ -1,0 +1,44 @@
+import pluginVitest from '@vitest/eslint-plugin'
+import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
+import { globalIgnores } from 'eslint/config'
+import pluginPlaywright from 'eslint-plugin-playwright'
+import sort from 'eslint-plugin-sort'
+import pluginVue from 'eslint-plugin-vue'
+
+// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
+// import { configureVueProject } from '@vue/eslint-config-typescript'
+// configureVueProject({ scriptLangs: ['ts', 'tsx'] })
+// More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
+
+export default defineConfigWithVueTs(
+  {
+    files: ['**/*.{ts,mts,tsx,vue}'],
+    name: 'app/files-to-lint',
+  },
+
+  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+
+  pluginVue.configs['flat/essential'],
+  vueTsConfigs.recommended,
+
+  {
+    ...pluginVitest.configs.recommended,
+    files: ['src/**/__tests__/*'],
+  },
+
+  {
+    ...pluginPlaywright.configs['flat/recommended'],
+    files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
+  },
+  skipFormatting,
+
+  {
+    ...sort.configs['flat/recommended'],
+    rules: {
+      'sort/destructuring-properties': 'error',
+      'sort/import-members': 'error',
+      'sort/object-properties': 'error',
+    },
+  },
+)

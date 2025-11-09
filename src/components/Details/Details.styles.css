@@ -1,0 +1,21 @@
+.line-title,
+.line-value {
+  margin: 0;
+  font-size: var(--font-size-h4);
+}
+
+.line-title {
+  font-weight: 500;
+}
+
+.line-value-input {
+  border: 1px solid var(--color-black-30);
+  border-radius: var(--s-border-radius);
+  padding: 1px 8px;
+  font-size: var(--font-size-h4);
+
+  &:focus,
+  &:focus-visible {
+    outline-color: var(--color-black-30);
+  }
+}
